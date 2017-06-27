@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Gawking out</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../../../theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="../../../theme/css/clean-blog.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="../../../theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
+        <!--<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>-->
+        <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>-->
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="I've been processing log files recently to see how a live system is being used. When you have millions of hits daily, you need these...">
+
+        <meta name="tags" content="work">
+        <meta name="tags" content="awk">
+        <meta name="tags" content="unix">
+        <meta name="tags" content="ops">
+        <meta name="tags" content="gawk">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../">endafarrell.net</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('../../../theme/images/banners/timber-1.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Gawking out</h1>
+                        <span class="meta">Fri 24 August 2012</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><img alt="awk logo" src="../../../images/gawking-out.jpg" style="float: left; margin-right: 7px;"> I've been 
+processing log files recently to see how a live system is 
+being used. When you have millions of hits daily, you need these processors to be fast.</p>
+<p>Today the best way is to have your log files shipped over onto a Hadoop cluster and map-reduce them: but sometimes 
+there's still a call for quick scripts. Here awk is a king :-)</p>
+<h2>Converting to a HTML table</h2>
+<p>I couldn't find a decent online version of converting a CSV into a HTML table - but with awk it's easy. Here's the 
+awk script:</p>
+<div class="highlight"><pre><span></span><span class="nb">BEGIN</span> <span class="p">{</span>
+    <span class="kr">print</span> <span class="s2">&quot;&lt;table&gt;&quot;</span> <span class="nx">HDR</span><span class="p">;</span>
+<span class="p">}</span> <span class="p">{</span> 
+    <span class="kr">printf</span> <span class="s2">&quot;&lt;tr&gt;&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nb">NF</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">printf</span> <span class="s2">&quot;&lt;td&gt;%s&lt;/td&gt;&quot;</span><span class="p">,</span> <span class="o">$</span><span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kr">print</span> <span class="s2">&quot;&lt;/tr&gt;&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="nb">END</span> <span class="p">{</span>
+    <span class="kr">print</span> <span class="s2">&quot;&lt;/table&gt;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This makes use of the field separator handling of awk: so a CSV can be converted into a simple HTML table like this:</p>
+<div class="highlight"><pre><span></span>cat stats.csv <span class="p">|</span><span class="se">\</span>
+awk -F<span class="s1">&#39;,&#39;</span> -f 2Table.awk <span class="se">\</span>
+--assign <span class="nv">HDR</span><span class="o">=</span><span class="s2">&quot;&lt;tr&gt;&lt;th&gt;A&gt;/th&gt;...&lt;/tr&gt;&quot;</span> &gt; stats.html
+</pre></div>
+
+
+<h2>Summing distinct rows</h2>
+<p>So the best way to describe this is to show an example:</p>
+<div class="highlight"><pre><span></span><span class="err">IP1 GET url1 200 32</span>
+<span class="err">IP2 GET url1 200 29</span>
+<span class="err">IP1 GET url1 200 21</span>
+</pre></div>
+
+
+<p>The "distinct rows" here would be "IP1 GET url1 200" and "IP2 GET url1 200". You could think of these as just a few 
+entries of the access_logs. Anyway, I wanted to sum together the times that these calls were taking (the last column). 
+Sometimes the number of fields varied so a general solution was needed.</p>
+<p>The desired output is:</p>
+<div class="highlight"><pre><span></span><span class="err">IP1 GET url1 200 53</span>
+<span class="err">IP2 GET url1 200 29</span>
+</pre></div>
+
+
+<p>and the script to do this is:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="c1"># Grab the value</span>
+    <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="o">$</span><span class="nb">NF</span><span class="p">;</span> 
+    <span class="c1"># Strip the value - $0 no longer has the value</span>
+    <span class="nb">NF</span><span class="o">--</span><span class="p">;</span>
+    <span class="c1"># Increments the value at hash[$0] or creates it</span>
+    <span class="c1"># if not already present.</span>
+    <span class="nx">hash</span><span class="p">[</span><span class="o">$</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">hash</span><span class="p">[</span><span class="o">$</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">num</span>
+<span class="p">}</span>
+<span class="nb">END</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">ndx</span> <span class="o">in</span> <span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">print</span> <span class="nx">ndx</span><span class="p">,</span><span class="nx">hash</span><span class="p">[</span><span class="nx">ndx</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="../../../tag/work.html">work</a>, <a href="../../../tag/awk.html">awk</a>, <a href="../../../tag/unix.html">unix</a>, <a href="../../../tag/ops.html">ops</a>, <a href="../../../tag/gawk.html">gawk</a></p>
+        </div>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-you can add links in your config file fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-another social link fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">&copy;  Enda Farrell</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../../../theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="../../../theme/js/clean-blog.js"></script>
+
+</body>
+
+</html>

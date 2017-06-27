@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>CouchDB 0.9x - 1st read from v large views serially</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../../../theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="../../../theme/css/clean-blog.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="../../../theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
+        <!--<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>-->
+        <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>-->
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="On a server, we run 4 different CouchDB nodes, each with 30 or so databases. We can therefore have over 100 databases - and if you’re...">
+
+        <meta name="tags" content="bbc-forge">
+        <meta name="tags" content="CouchDB">
+        <meta name="tags" content="work">
+        <meta name="tags" content="NoSQL">
+        <meta name="tags" content="how-to">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../">endafarrell.net</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('../../../theme/images/banners/timber-1.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>CouchDB 0.9x - 1st read from v large views serially</h1>
+                        <span class="meta">Thu 05 November 2009</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>On a server, we run 4 different CouchDB nodes, each with 30 or so databases. We can therefore have over 100 databases - 
+and if you’re reading from large views - or view over large databases - you will need to do so serially.</p>
+<p>We have 4 as “normally” CouchDB is kind re it’s use of memory, and kind in terms of CPU usage (we have 8-core machines 
+here). Yes - there is a headache re being disk-IO bound, but it’s not normally a problem.</p>
+<p>But views are now needed (to identify conflicting docs) as we have many applications using our KV service in both of 
+our datacentres. And adding them is not straight-forward.</p>
+<p>In the docs, you’ll see that a view is no more than a “special” document, so “creating” them is indeed 
+straight-forward. What’s not in the docs (yet at least) is that if you’re going to add a view to a large database, 
+you’re going to need to have PLENTY of memory. Last night we ran into “eheap_alloc” which took down each of the nodes.</p>
+<p>So - you gotta take your time, and do them serially.</p>
+<p>Unfortunately, the first read of a view over a very large database can take some time. Even a 70 thousand doc 8 GB 
+database can take 2 to 4 hours to build even a simple view (which led to the code that added and read them in 
+parallel) - go give yourself many days.</p>
+<p>Here’s what top looks like mid-1st read:</p>
+<div class="highlight"><pre><span></span>top - <span class="m">15</span>:05:54 up <span class="m">71</span> days, <span class="m">17</span>:26, <span class="m">1</span> user, load average: <span class="m">1</span>.02, <span class="m">1</span>.04, <span class="m">1</span>.04
+Tasks: <span class="m">147</span> total, <span class="m">1</span> running, <span class="m">146</span> sleeping, <span class="m">0</span> stopped, <span class="m">0</span> zombie
+Cpu<span class="o">(</span>s<span class="o">)</span>: <span class="m">11</span>.5%us, <span class="m">1</span>.7%sy, <span class="m">0</span>.0%ni, <span class="m">86</span>.9%id, <span class="m">0</span>.0%wa, <span class="m">0</span>.0%hi, <span class="m">0</span>.0%si, <span class="m">0</span>.0%st
+Mem:  16438912k total, 16331660k used,   107252k free,    19048k buffers
+Swap: 16771820k total,  8493532k used,  8278288k free,  6754524k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+ <span class="m">8893</span> couchdb   <span class="m">18</span>   <span class="m">0</span> <span class="m">15</span>.6g <span class="m">7</span>.8g <span class="m">1944</span> S    <span class="m">0</span> <span class="m">49</span>.6  <span class="m">13</span>:53.09 couchjs
+ <span class="m">2790</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  357m 132m <span class="m">4180</span> S    <span class="m">0</span>  <span class="m">0</span>.8  <span class="m">76</span>:06.97 beam.smp
+ <span class="m">2843</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  342m 167m <span class="m">4116</span> S   <span class="m">86</span>  <span class="m">1</span>.0  <span class="m">81</span>:54.23 beam.smp
+ <span class="m">2896</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  175m  17m <span class="m">3896</span> S    <span class="m">0</span>  <span class="m">0</span>.1   <span class="m">0</span>:06.73 beam.smp
+ <span class="m">2949</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  171m  14m <span class="m">3744</span> S    <span class="m">0</span>  <span class="m">0</span>.1   <span class="m">0</span>:06.03 beam.smp
+<span class="m">32320</span> couchdb   <span class="m">18</span>   <span class="m">0</span>  150m 105m <span class="m">1948</span> S   <span class="m">15</span>  <span class="m">0</span>.7  <span class="m">13</span>:36.61 couchjs
+</pre></div>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="../../../tag/bbc-forge.html">bbc-forge</a>, <a href="../../../tag/couchdb.html">CouchDB</a>, <a href="../../../tag/work.html">work</a>, <a href="../../../tag/nosql.html">NoSQL</a>, <a href="../../../tag/how-to.html">how-to</a></p>
+        </div>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-you can add links in your config file fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-another social link fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">&copy;  Enda Farrell</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../../../theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="../../../theme/js/clean-blog.js"></script>
+
+</body>
+
+</html>
