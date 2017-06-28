@@ -33,7 +33,7 @@
 
 
 
-        <meta name="description" content="On a server, we run 4 different CouchDB nodes, each with 30 or so databases. We can therefore have over 100 databases - and if you’re...">
+        <meta name="description" content="On a server, we run 4 different CouchDB nodes, each with 30 or so databases. We can therefore have over 100 databases - and if you’re ...">
 
         <meta name="tags" content="bbc-forge">
         <meta name="tags" content="CouchDB">
@@ -104,19 +104,19 @@ you’re going to need to have PLENTY of memory. Last night we ran into “eheap
 database can take 2 to 4 hours to build even a simple view (which led to the code that added and read them in 
 parallel) - go give yourself many days.</p>
 <p>Here’s what top looks like mid-1st read:</p>
-<div class="highlight"><pre><span></span>top - <span class="m">15</span>:05:54 up <span class="m">71</span> days, <span class="m">17</span>:26, <span class="m">1</span> user, load average: <span class="m">1</span>.02, <span class="m">1</span>.04, <span class="m">1</span>.04
+<div class="highlight"><pre>top - 15:05:54 up <span class="m">71</span> days, 17:26, <span class="m">1</span> user, load average: 1.02, 1.04, 1.04
 Tasks: <span class="m">147</span> total, <span class="m">1</span> running, <span class="m">146</span> sleeping, <span class="m">0</span> stopped, <span class="m">0</span> zombie
-Cpu<span class="o">(</span>s<span class="o">)</span>: <span class="m">11</span>.5%us, <span class="m">1</span>.7%sy, <span class="m">0</span>.0%ni, <span class="m">86</span>.9%id, <span class="m">0</span>.0%wa, <span class="m">0</span>.0%hi, <span class="m">0</span>.0%si, <span class="m">0</span>.0%st
+Cpu<span class="o">(</span>s<span class="o">)</span>: 11.5%us, 1.7%sy, 0.0%ni, 86.9%id, 0.0%wa, 0.0%hi, 0.0%si, 0.0%st
 Mem:  16438912k total, 16331660k used,   107252k free,    19048k buffers
 Swap: 16771820k total,  8493532k used,  8278288k free,  6754524k cached
 
   PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
- <span class="m">8893</span> couchdb   <span class="m">18</span>   <span class="m">0</span> <span class="m">15</span>.6g <span class="m">7</span>.8g <span class="m">1944</span> S    <span class="m">0</span> <span class="m">49</span>.6  <span class="m">13</span>:53.09 couchjs
- <span class="m">2790</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  357m 132m <span class="m">4180</span> S    <span class="m">0</span>  <span class="m">0</span>.8  <span class="m">76</span>:06.97 beam.smp
- <span class="m">2843</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  342m 167m <span class="m">4116</span> S   <span class="m">86</span>  <span class="m">1</span>.0  <span class="m">81</span>:54.23 beam.smp
- <span class="m">2896</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  175m  17m <span class="m">3896</span> S    <span class="m">0</span>  <span class="m">0</span>.1   <span class="m">0</span>:06.73 beam.smp
- <span class="m">2949</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  171m  14m <span class="m">3744</span> S    <span class="m">0</span>  <span class="m">0</span>.1   <span class="m">0</span>:06.03 beam.smp
-<span class="m">32320</span> couchdb   <span class="m">18</span>   <span class="m">0</span>  150m 105m <span class="m">1948</span> S   <span class="m">15</span>  <span class="m">0</span>.7  <span class="m">13</span>:36.61 couchjs
+ <span class="m">8893</span> couchdb   <span class="m">18</span>   <span class="m">0</span> 15.6g 7.8g <span class="m">1944</span> S    <span class="m">0</span> 49.6  13:53.09 couchjs
+ <span class="m">2790</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  357m 132m <span class="m">4180</span> S    <span class="m">0</span>  0.8  76:06.97 beam.smp
+ <span class="m">2843</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  342m 167m <span class="m">4116</span> S   <span class="m">86</span>  1.0  81:54.23 beam.smp
+ <span class="m">2896</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  175m  17m <span class="m">3896</span> S    <span class="m">0</span>  0.1   0:06.73 beam.smp
+ <span class="m">2949</span> couchdb   <span class="m">25</span>   <span class="m">0</span>  171m  14m <span class="m">3744</span> S    <span class="m">0</span>  0.1   0:06.03 beam.smp
+<span class="m">32320</span> couchdb   <span class="m">18</span>   <span class="m">0</span>  150m 105m <span class="m">1948</span> S   <span class="m">15</span>  0.7  13:36.61 couchjs
 </pre></div>
     </article>
 

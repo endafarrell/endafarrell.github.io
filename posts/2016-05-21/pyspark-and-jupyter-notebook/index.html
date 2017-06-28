@@ -33,7 +33,7 @@
 
 
 
-        <meta name="description" content="There's a lot of crap advice about getting jupyter notebooks to play nicely with pyspark. I guess things have changed a lot over the...">
+        <meta name="description" content="There's a lot of crap advice about getting jupyter notebooks to play nicely with pyspark. I guess things have changed a lot over the ...">
 
         <meta name="tags" content="pyspark">
         <meta name="tags" content="jupyter">
@@ -95,11 +95,11 @@
         <p>There's a <em>lot</em> of crap advice about getting jupyter notebooks to play nicely with pyspark. I guess things have changed
 a lot over the last couple of years, but here's how I have things.</p>
 <p>I use <a href="http://conda.pydata.org/docs/">conda</a> for my python envs, but I <em>doubt</em> that matters here.</p>
-<div class="highlight"><pre><span></span><span class="nv">SPARK_HOME</span><span class="o">=</span>/workspace/pyspark-games/spark-1.5.0-bin-hadoop2.4 <span class="se">\</span>
-<span class="nv">PATH</span><span class="o">=</span><span class="nv">$SPARK_HOME</span>/bin:<span class="nv">$PATH</span> <span class="se">\</span>
-<span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$SPARK_HOME</span>/python/:<span class="nv">$SPARK_HOME</span>/python/lib/py4j-0.8.2.1-src.zip:<span class="nv">$PYTHONPATH</span> <span class="se">\</span>
+<div class="highlight"><pre><span class="nv">SPARK_HOME</span><span class="o">=</span>/workspace/pyspark-games/spark-1.5.0-bin-hadoop2.4 <span class="se">\</span>
+<span class="nv">PATH</span><span class="o">=</span>$SPARK_HOME/bin:$PATH <span class="se">\</span>
+<span class="nv">PYTHONPATH</span><span class="o">=</span>$SPARK_HOME/python/:$SPARK_HOME/python/lib/py4j-0.8.2.1-src.zip:$PYTHONPATH <span class="se">\</span>
 <span class="nv">IPYTHON_OPTS</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span> <span class="se">\</span>
-<span class="nv">$SPARK_HOME</span>/bin/pyspark
+$SPARK_HOME/bin/pyspark
 </pre></div>
 
 

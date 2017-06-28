@@ -33,7 +33,7 @@
 
 
 
-        <meta name="description" content="Thanks to http://www.contentwithstyle.co.uk/content/4-ssh-config-tips-for-faster-remote-working/ I can avoid creating files which need...">
+        <meta name="description" content="Thanks to http://www.contentwithstyle.co.uk/content/4-ssh-config-tips-for-faster-remote-working/ I can avoid creating files which need ...">
 
         <meta name="tags" content="proxy">
         <meta name="tags" content="ssh">
@@ -91,7 +91,7 @@
     <article>
         <p>Thanks to <a href="">http://www.contentwithstyle.co.uk/content/4-ssh-config-tips-for-faster-remote-working/</a> I can avoid 
 creating files which need to be scp’d: I can pipe the content directly:</p>
-<div class="highlight"><pre><span></span>local$ cat localfile.txt <span class="p">|</span> ssh remote <span class="s2">&quot;cat - &gt;&gt; remotefile.txt&quot;</span>
+<div class="highlight"><pre>local$ cat localfile.txt <span class="p">|</span> ssh remote <span class="s2">&quot;cat - &gt;&gt; remotefile.txt&quot;</span>
 </pre></div>
 
 
@@ -103,7 +103,7 @@ see</p>
 <li><a href="">http://scratching.psybermonkey.net/2011/02/ssh-how-to-pipe-output-from-local-to.html</a></li>
 </ul>
 <p>My favourite example from the last site (execute commands on remote server but save the output to local) is:</p>
-<div class="highlight"><pre><span></span>ssh user@example.com <span class="s2">&quot;mysqldump -u DB_username -pDB_password DB_name | gzip -c&quot;</span> &gt; /local/dir/DB_backup.gz
+<div class="highlight"><pre>ssh user@example.com <span class="s2">&quot;mysqldump -u DB_username -pDB_password DB_name | gzip -c&quot;</span> &gt; /local/dir/DB_backup.gz
 </pre></div>
     </article>
 

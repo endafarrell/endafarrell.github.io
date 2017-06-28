@@ -33,7 +33,7 @@
 
 
 
-        <meta name="description" content="For a long set of reasons that I must sometime write about, I have a set of CouchDB databases which replicate with each other. Each...">
+        <meta name="description" content="For a long set of reasons that I must sometime write about, I have a set of CouchDB databases which replicate with each other. Each ...">
 
         <meta name="tags" content="bbc-forge">
         <meta name="tags" content="config">
@@ -95,7 +95,7 @@ only running with two datacentres at the moment). One is to do with resiliance t
 <p>Anyway - having two or more replications is not a problem with CouchDB (if you’re careful) - even with our version 0.9x.</p>
 <h2>Lacking symmetry</h2>
 <p>However - we may not have been as careful as we’d have wished: look at these numbers:</p>
-<p><img alt="a well-balanced set of servers in different datacentres" src="../../../images/2009/Problems-with-replication-maps.1.png"> </p>
+<p><img alt="a well-balanced set of servers in different datacentres" src="../../../images/2009/Problems-with-replication-maps.1.png" /> </p>
 <p>Here we see that the replication maps have datacentre symmetry - the data in each node in the two data centres are the 
 same. Apart from the very slight increase in DC2’s data - because I took those numbers about 5 min after the first DC. 
 This set of data (one of 15 which we have today) is growing at 0.3% per 5 min.</p>
@@ -103,10 +103,10 @@ This set of data (one of 15 which we have today) is growing at 0.3% per 5 min.</
 <p>The datacentres give us the capacity to handle requests in our platform, but we also have replications within each 
 datacentre for resilience. Each node should be either a primary or a fallback node, and we should have resilience 
 symmetry - but look at what we actually have when we align the primary and fallbacks:</p>
-<p><img alt="servers without fallbacks across datacentres" src="../../../images/2009/Problems-with-replication-maps.2.png"> </p>
+<p><img alt="servers without fallbacks across datacentres" src="../../../images/2009/Problems-with-replication-maps.2.png" /> </p>
 <p>Ouch - this does not look symmetrical at all!</p>
 <p>Here’s where the problem lies - a bug in the config:</p>
-<p><img alt="misconfigured replication mappings" src="../../../images/2009/Problems-with-replication-maps.3.png"> </p>
+<p><img alt="misconfigured replication mappings" src="../../../images/2009/Problems-with-replication-maps.3.png" /> </p>
 <p>Here we can see a few problems:</p>
 <ul>
 <li>two of our nodes appear as both Primary and as Fallback nodes</li>
@@ -123,14 +123,14 @@ will then fill the unused nodes with the appropriate data.</p>
 ought not be. However - we do need to be careful that we do not have unexpected side effects.</p>
 <p>The two nodes that appear as both primary and fallback (kv003:5986 and kv004:5987) have too much data as they get 
 their “own” data and they were incorrectly replicated into too. Here’s how the other two nodes got out of hand.</p>
-<div class="highlight"><pre><span></span><span class="err">Data is correctly added to the primary node kv001:5987.</span>
+<div class="highlight"><pre><span class="err">Data is correctly added to the primary node kv001:5987.</span>
 <span class="err">Replication sent a copy from kv001:5987 to kv004:5987.</span>
 <span class="err">Unsymmetric replication sent a copy from kv004:5987 to kv002:5987</span>
 </pre></div>
 
 
 <p>Hence kv002:5987 has too much data. Here is the same story for kv001:5986.</p>
-<div class="highlight"><pre><span></span><span class="err">Data is correctly added to the primary node kv002:5986.</span>
+<div class="highlight"><pre><span class="err">Data is correctly added to the primary node kv002:5986.</span>
 <span class="err">Replication sent a copy from kv002:5986 to kv003:5986.</span>
 <span class="err">Unsymmetric replication sent a copy from kv003:5986 to kv001:5986.</span>
 </pre></div>
@@ -143,7 +143,7 @@ with appropriately populated databases.</p>
 kv003:5986 and kv004:5987 (one quarter of the full set) and reshard those - and you’d be correct. In the fix - in 
 order to balance the load across the nodes - kv002:5986 will be demoted to be a fallback and kv004:5986 will be 
 promoted to be a full primary node as shown here:</p>
-<p><img alt="correctly-configured replication mappings" src="../../../images/2009/Problems-with-replication-maps.4.png"> </p>
+<p><img alt="correctly-configured replication mappings" src="../../../images/2009/Problems-with-replication-maps.4.png" /> </p>
 <p>However - there’s more.</p>
 <h2>DNS, VIPs and things that can go wrong</h2>
 <p>Alas, if the above really was the source of the problem we wouldn't have fallen into it. You see, for the resilience 
@@ -151,7 +151,7 @@ to work we need the primary and fallback nodes to “flip” automatically - for
 work. Of course, for that to be picked up by the Tomcat layer above, DNS CNAMES must be used. </p>
 <p>This table is horrible - so sorry - but it shows what is there now and by assuming that we need to keep everything 
 symmetrical - an excellent assumption - we can spot what needs to change. It essentially shows how to fix the problem.</p>
-<p><img alt="unreadably-small set of entries" src="../../../images/2009/Problems-with-replication-maps.5.png"> </p>
+<p><img alt="unreadably-small set of entries" src="../../../images/2009/Problems-with-replication-maps.5.png" /> </p>
 <p>In the yellow box we see the nodes that are both primary and fallback and the nodes that are unused. The fix - in the 
 green - shows the newly bolded fallback changes that most simply fix the problem. It was important that we were able 
 to “simply” find the fix by only changing the fallback nodes - we avoid a potentially long-running and danger-fraught 

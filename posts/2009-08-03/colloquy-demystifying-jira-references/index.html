@@ -33,7 +33,7 @@
 
 
 
-        <meta name="description" content="The BBC’s Forge engineering team uses an IRC channel to hold meetings. It allows our team to not bother about exactly where everyone is...">
+        <meta name="description" content="The BBC’s Forge engineering team uses an IRC channel to hold meetings. It allows our team to not bother about exactly where everyone is ...">
 
         <meta name="tags" content="Perl">
         <meta name="tags" content="bbc-forge">
@@ -107,7 +107,7 @@ Colloquy that helps.</p>
 <p>This script works with a small shell script that handles regex (there is an AppleScript plugin that can do this, but 
 it’s not really needed for this) to identify a likely JIRA reference and to print out the title of the JIRA ticket.</p>
 <p>First that little shell script:</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/opt/local/bin/perl</span>
+<div class="highlight"><pre><span class="ch">#!/opt/local/bin/perl</span>
 <span class="nv">$LINE</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
 <span class="k">my</span> <span class="nv">$JIRAREF</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span> <span class="nv">$LINE</span> <span class="o">=~</span> <span class="sr">m/(\w+\-\d+)/</span> <span class="p">)</span> <span class="p">{</span>
@@ -120,7 +120,7 @@ it’s not really needed for this) to identify a likely JIRA reference and to pr
 <p>As you can see it does very little - it finds strings like “FSRV-102”, or “KV-1” and prints it out, otherwise it 
 outputs nothing. Quite simple.</p>
 <p>Second the AppleScript Colloquy plugin script:</p>
-<div class="highlight"><pre><span></span><span class="k">property</span> <span class="nv">scriptInitialPath</span> <span class="p">:</span> <span class="nv">null</span>
+<div class="highlight"><pre><span class="k">property</span> <span class="nv">scriptInitialPath</span> <span class="p">:</span> <span class="nv">null</span>
 <span class="k">property</span> <span class="nv">loadedScriptName</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
 
 <span class="k">using terms from</span> <span class="nb">application</span> <span class="s2">&quot;Colloquy&quot;</span>
