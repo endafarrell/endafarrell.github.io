@@ -105,7 +105,7 @@ one-off here” I compacted everything (nearly together) instead of our system c
 approach.</p>
 <p>Here are some charts so see what happened.</p>
 <p>This chart is going to take some explaining:
-<img alt="complex chart of sizes and compaction ratios" src="../../../images/2009/CouchDB-compaction.1.png"></p>
+<img alt="complex chart of sizes and compaction ratios" src="../../../images/2009/CouchDB-compaction.1.png" /></p>
 <p>Think of it like a stock chart: the blue is the “volume” - the overall size on disk of the database. Its axis is on the 
 left drawn on a log scale given the range of sizes. The biggest was ~ 150 GB, the smallest 80k - but it’s not really 
 that important here.</p>
@@ -130,9 +130,9 @@ is because small ones are not being revised much - there’s very little going o
 hence little for the compactor to free up.</p>
 <p>So that’s the good news. Now the bad.</p>
 <p>Here’s what the process did to one of our 16 servers handling the CouchDB data:</p>
-<p><img alt="cluster load" src="../../../images/2009/CouchDB-compaction.2.png">
-<img alt="cluster cpu" src="../../../images/2009/CouchDB-compaction.3.png">
-<img alt="cluster io" src="../../../images/2009/CouchDB-compaction.4.png"></p>
+<p><img alt="cluster load" src="../../../images/2009/CouchDB-compaction.2.png" />
+<img alt="cluster cpu" src="../../../images/2009/CouchDB-compaction.3.png" />
+<img alt="cluster io" src="../../../images/2009/CouchDB-compaction.4.png" /></p>
 <p>For two hours on these 8 core (2 x quad-core DL-380s) machines were taking a thumping. The ops crew came wandering over 
 wondering what’s going on. They know that big HTTP traffic can cause load on these boxes but high load without traffic? 
 That’s odd.</p>
@@ -183,7 +183,7 @@ look a bit like the load graph.</p>
                                 </a>
                             </li>
                     </ul>
-<p class="copyright text-muted">&copy;  Enda Farrell</p>                </div>
+<p class="copyright text-muted">&copy;  Enda Farrell. <a href="/images/2017/7BE41ED9.pub.asc">My PGP public key</a></p>                </div>
             </div>
         </div>
     </footer>
@@ -197,6 +197,15 @@ look a bit like the load graph.</p>
         <!-- Custom Theme JavaScript -->
         <script src="../../../theme/js/clean-blog.js"></script>
 
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-101964846-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </body>
 
 </html>
