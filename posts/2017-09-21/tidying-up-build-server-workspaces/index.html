@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>endafarrell.net - Tag how-to</title>
+        <title>Tidying up build server workspaces</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../theme/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="../theme/css/clean-blog.css" rel="stylesheet">
+        <link href="../../../theme/css/clean-blog.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="../theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="../../../theme/css/code_blocks/darkly.css" rel="stylesheet">
 
 
         <!-- Custom Fonts -->
@@ -30,6 +30,12 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+
+
+        <meta name="description" content="You're not going to want to do this - but if you have to do it ... I have a job that needs 200+ GB of disk to run. I have build servers...">
+
+        <meta name="tags" content="unix">
 </head>
 
 <body>
@@ -45,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../">endafarrell.net</a>
+                <a class="navbar-brand" href="../../../">endafarrell.net</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -59,12 +65,15 @@
         <!-- /.container -->
     </nav>
 
-        <header class="intro-header" style="background-image: url('../theme/images/banners/timber-1.jpg')">
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('../../../theme/images/banners/timber-1.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="page-heading">
-                        <h1>Tag how-to</h1>
+                    <div class="post-heading">
+                        <h1>Tidying up build server workspaces</h1>
+                        <span class="meta">Thu 21 September 2017</span>
+                        
                     </div>
                 </div>
             </div>
@@ -75,39 +84,47 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-preview">
-            <a href="../posts/2018-03-04/parsing-dates-in-java/" rel="bookmark" title="Permalink to Parsing dates in Java">
-                <h2 class="post-title">
-                    Parsing dates in Java
-                </h2>
-            </a>
-                <p class="article-summary">
-                    Clearly, the correct way to deal with dates in Java is with Joda, but I've been looking at a project which doesn't have Joda installed already, and I haven't earned the right to rearrange that project's dependencies and build patterns....
-                </p>
-            <p class="post-meta">Sun 04 March 2018</p>
+    <!-- Post Content -->
+    <article>
+        <p>You're not going to want to do this - but if you have to do it ...</p>
+<p>I have a job that needs 200+ GB of disk to run. I have build servers which do have that kind of 
+space, but as they are shared servers, other jobs can take some of that space, and occasionally I 
+have jobs which run into the "No space left on device" problem.</p>
+<p>Like with all build servers, it's easy to add new jobs when you need them - but we humans are not
+good at removing old jobs - and more importantly their old, unused workspaces - when we've moved on
+to other work - and this does mean that my 200+ GB jobs fail more often than is needed.</p>
+<p>So: how about we remove old workspaces that are no longer needed? My definition of "no longer 
+needed" is "hasn't been written to in over 30 days" - but more on that later.</p>
+<p>First - you'll need to know when each of the workspace directories was last written to: this next
+line - when run from the <code>/data/workspaces/</code> dir will give that - recursively - in a YYYY-MM-DD
+format:</p>
+<div class="highlight"><pre><span></span>for d in $(ls -1); do echo -n <span class="cp">${</span><span class="n">d</span><span class="cp">}</span>; find <span class="cp">${</span><span class="n">d</span><span class="cp">}</span> -type f -printf &quot; %TY-%Tm-%Td\n&quot; | sort -nr | head -n1; done;
+</pre></div>
+
+
+<p>I've found that subdirs with an @ symbol in their name causes problems, but there are not many of 
+those and I want to be able to eyeball these to ensure nothing unexpected has happened. I then copy
+that output into a <code>/tmp/jobs-last-write-dates.txt</code> file and fix anything that needs fixing. I then
+swap them around so that I can see them in date order (which I could of course have done above, but
+...)</p>
+<div class="highlight"><pre><span></span>cat /tmp/jobs-last-write-dates.txt | awk &#39;{print $2 &quot; &quot; $1}&#39; | sort &gt; /tmp/last-write-dates-for-jobs.txt
+</pre></div>
+
+
+<p>At this point in time, 2017-09-21, I wanted to remove jobs where the last write was some time ago - 
+hence the first grep. The latter greps are there as a precaution against things I missed</p>
+<div class="highlight"><pre><span></span>cat /tmp/last-write-dates-for-jobs.txt | grep &#39;^2017-08-[01]&#39; | awk &#39;{print &quot;rm -rf &quot; $2}&#39; | grep -v &#39;@&#39; | grep -v &#39;&lt;important-high-profile&gt;&#39; | sh
+</pre></div>
+
+
+<p>That very last <code>| sh</code> is the step you're "not going to want to do"- be careful.</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="../../../tag/unix.html">unix</a></p>
         </div>
-        <div class="post-preview">
-            <a href="../posts/2016-05-21/pyspark-and-jupyter-notebook/" rel="bookmark" title="Permalink to PySpark and Jupyter Notebook">
-                <h2 class="post-title">
-                    PySpark and Jupyter Notebook
-                </h2>
-            </a>
-                <p class="article-summary">
-                    There's a lot of crap advice about getting jupyter notebooks to play nicely with pyspark. I guess things have changed a lot over the last couple of years, but here's how I have things. I use conda for my python envs, but I doubt that...
-                </p>
-            <p class="post-meta">Sat 21 May 2016</p>
-        </div>
-        <div class="post-preview">
-            <a href="../posts/2009-11-05/couchdb-09x-1st-read-from-v-large-views-serially/" rel="bookmark" title="Permalink to CouchDB 0.9x - 1st read from v large views serially">
-                <h2 class="post-title">
-                    CouchDB 0.9x - 1st read from v large views serially
-                </h2>
-            </a>
-                <p class="article-summary">
-                    On a server, we run 4 different CouchDB nodes, each with 30 or so databases. We can therefore have over 100 databases - and if you’re reading from large views - or view over large databases - you will need to do so serially. We have 4...
-                </p>
-            <p class="post-meta">Thu 05 November 2009</p>
-        </div>
+
+    <hr>
 
             </div>
         </div>
@@ -144,13 +161,13 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="../theme/js/jquery.min.js"></script>
+    <script src="../../../theme/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../theme/js/bootstrap.min.js"></script>
+    <script src="../../../theme/js/bootstrap.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
-        <script src="../theme/js/clean-blog.js"></script>
+        <script src="../../../theme/js/clean-blog.js"></script>
 
     <script type="text/javascript">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

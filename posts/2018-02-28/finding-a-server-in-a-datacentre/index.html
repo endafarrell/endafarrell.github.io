@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>endafarrell.net - Tag how-to</title>
+        <title>Finding a server in a datacentre</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../theme/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="../theme/css/clean-blog.css" rel="stylesheet">
+        <link href="../../../theme/css/clean-blog.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="../theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="../../../theme/css/code_blocks/darkly.css" rel="stylesheet">
 
 
         <!-- Custom Fonts -->
@@ -30,6 +30,13 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+
+
+        <meta name="description" content="At work, we're in the process of moving datacentres and some of my (extensive) monitoring needs to be updated. In particular, I have a...">
+
+        <meta name="tags" content="unix">
+        <meta name="tags" content="nmap">
 </head>
 
 <body>
@@ -45,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../">endafarrell.net</a>
+                <a class="navbar-brand" href="../../../">endafarrell.net</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -59,12 +66,15 @@
         <!-- /.container -->
     </nav>
 
-        <header class="intro-header" style="background-image: url('../theme/images/banners/timber-1.jpg')">
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('../../../theme/images/banners/timber-1.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="page-heading">
-                        <h1>Tag how-to</h1>
+                    <div class="post-heading">
+                        <h1>Finding a server in a datacentre</h1>
+                        <span class="meta">Wed 28 February 2018</span>
+                        
                     </div>
                 </div>
             </div>
@@ -75,39 +85,30 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-preview">
-            <a href="../posts/2018-03-04/parsing-dates-in-java/" rel="bookmark" title="Permalink to Parsing dates in Java">
-                <h2 class="post-title">
-                    Parsing dates in Java
-                </h2>
-            </a>
-                <p class="article-summary">
-                    Clearly, the correct way to deal with dates in Java is with Joda, but I've been looking at a project which doesn't have Joda installed already, and I haven't earned the right to rearrange that project's dependencies and build patterns....
-                </p>
-            <p class="post-meta">Sun 04 March 2018</p>
+    <!-- Post Content -->
+    <article>
+        <p>At work, we're in the process of moving datacentres and some of my (extensive) monitoring needs to be updated. In 
+particular, I have a monitor on Hadoop jobs which looks for job names of a specific pattern and posts them to a 
+TeamUp calendar so that we can see what's running where. Over the weekend, the old datacentre's Hadoop job-trackers were
+shut down - now my monitor is complaining that it can't connect. </p>
+<p>The datacentre migration does not have a central documentation location showing the URLs of old and new (for reasons
+I cannot understand, the ops people decided to change the hostnames in a way that does not allow for any kind of mapping
+from old to new), so now I need to find the server running the job-tracker in the new datacentre. The main clue I had is
+that it's running on port 50030.</p>
+<div class="highlight"><pre><span></span>nmap -p 50030 10.xxx.yyy.0/24 |\
+ grep -B4 &quot;50030/tcp open&quot;
+</pre></div>
+
+
+<p>Luckily, <code>nmap</code> is still available, and I have an account on a server in the datacentre, so the hardest part was 
+removing the <code>nmap</code> entries for servers where the port was closed: the <code>grep</code>.</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="../../../tag/unix.html">unix</a>, <a href="../../../tag/nmap.html">nmap</a></p>
         </div>
-        <div class="post-preview">
-            <a href="../posts/2016-05-21/pyspark-and-jupyter-notebook/" rel="bookmark" title="Permalink to PySpark and Jupyter Notebook">
-                <h2 class="post-title">
-                    PySpark and Jupyter Notebook
-                </h2>
-            </a>
-                <p class="article-summary">
-                    There's a lot of crap advice about getting jupyter notebooks to play nicely with pyspark. I guess things have changed a lot over the last couple of years, but here's how I have things. I use conda for my python envs, but I doubt that...
-                </p>
-            <p class="post-meta">Sat 21 May 2016</p>
-        </div>
-        <div class="post-preview">
-            <a href="../posts/2009-11-05/couchdb-09x-1st-read-from-v-large-views-serially/" rel="bookmark" title="Permalink to CouchDB 0.9x - 1st read from v large views serially">
-                <h2 class="post-title">
-                    CouchDB 0.9x - 1st read from v large views serially
-                </h2>
-            </a>
-                <p class="article-summary">
-                    On a server, we run 4 different CouchDB nodes, each with 30 or so databases. We can therefore have over 100 databases - and if you’re reading from large views - or view over large databases - you will need to do so serially. We have 4...
-                </p>
-            <p class="post-meta">Thu 05 November 2009</p>
-        </div>
+
+    <hr>
 
             </div>
         </div>
@@ -144,13 +145,13 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="../theme/js/jquery.min.js"></script>
+    <script src="../../../theme/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../theme/js/bootstrap.min.js"></script>
+    <script src="../../../theme/js/bootstrap.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
-        <script src="../theme/js/clean-blog.js"></script>
+        <script src="../../../theme/js/clean-blog.js"></script>
 
     <script type="text/javascript">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
