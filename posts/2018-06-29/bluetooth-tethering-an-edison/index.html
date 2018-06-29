@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Bluetooth tethering an Edison</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../../../theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="../../../theme/css/clean-blog.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="../../../theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
+        <!--<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>-->
+        <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>-->
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="There are good instructions on how to tether an Edison to Bluetooth in the docs but I've found them a little difficult to follow, and...">
+
+        <meta name="tags" content="insulin">
+        <meta name="tags" content="pump">
+        <meta name="tags" content="diabetes">
+        <meta name="tags" content="openaps">
+        <meta name="tags" content="bluetooth">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../">endafarrell.net</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('../../../theme/images/banners/timber-1.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Bluetooth tethering an Edison</h1>
+                        <span class="meta">Fri 29 June 2018</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>There are good instructions on how to tether an Edison to Bluetooth in the 
+<a href="https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/bluetooth-tethering-edison.html">docs</a>
+but I've found them a little difficult to follow, and I'm not certain that it worked "as is" for me,
+so here's my version.</p>
+<p>-2: Comment-out the local WiFi from <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>. The rig prefers 
+WiFi over BT - a decision I very much agree with - but you'll need to ensure that you don't have any
+WiFi going on for a while until you get this sorted out.</p>
+<p>-1: <code>bluetoothd --version</code> If you don't have the correct <code>bluetoothd</code> you're going to be in 
+trouble and will have to reflash the machine. Go and rebuild the rig.</p>
+<p>0: Get the MAC of the phone's BT. Mine's  <code>98:0D:2E:D8:59:73</code>.</p>
+<p>1: <code>reboot</code>. Best start off fresh.</p>
+<p>2: <code>service cron stop</code>. The OpenAPS crontab has lots, and it runs a lot every minute. You don't 
+want them interfeering.</p>
+<p>3: <code>ifconfig wlan0 down</code>. To get the rig to connect over Bluetooth, it's best if you don't have a 
+WiFi connection there already. You can confirm that the WiFi is down with <code>ifconfig</code>: </p>
+<div class="highlight"><pre><span></span>root@erig0:~# ifconfig
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+usb0      Link encap:Ethernet  HWaddr 02:00:86:cf:e9:d8
+          inet addr:10.11.12.13  Bcast:10.11.12.255  Mask:255.255.255.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+</pre></div>
+
+
+<p>What you don't see here is a <code>wlan0</code> interface.</p>
+<p>4: <code>killall bluetoothd</code>. Stop any existing bluetooth daemons. Repeat every few seconds until you 
+see:</p>
+<div class="highlight"><pre><span></span>root@edison:~# killall bluetoothd
+bluetoothd: no process found
+</pre></div>
+
+
+<p>Now there's none running.</p>
+<p>5: <code>hciconfig hci0 name $HOSTNAME</code>. Rename your bluetooth to be the name of your rig. My 
+<code>$HOSTNAME</code> is <code>erig0</code> - and that's what I expect to see in a few places here.</p>
+<p>6: <code>/usr/local/bin/bluetoothd &amp;</code> Start the bluetooth daemon. Wait a few seconds.</p>
+<p>7: <code>bluetoothctl</code> Launch the bluetooth controller. You're going to stay in here for a bit, and to
+help make that clear, I'll rename these points 7.1, 7.2 etc etc. When I launched <code>bluetoothctl</code> I 
+saw this:</p>
+<div class="highlight"><pre><span></span><span class="k">[NEW] Controller 58:A8:39:01:D5:E0 erig0 [default]</span>
+<span class="na">[NEW] Device 98:0D:2E:D8:59:73 Noncompliant</span>
+<span class="na">Agent registered</span>
+</pre></div>
+
+
+<p>I <em>suspect</em> that this means that the rig already "knows" about my phone's Bluetooth (the 
+98:0D:2E:D8:59:73 is indeed the phone). I want to be able to ensure that I'm setting up everything
+cleanly, and have it repair nicely, so I first remove it: <code>remove 98:0D:2E:D8:59:73</code> which results 
+in:</p>
+<div class="highlight"><pre><span></span>[bluetooth]# remove 98:0D:2E:D8:59:73
+[DEL] Device 98:0D:2E:D8:59:73 Noncompliant
+Device has been removed
+</pre></div>
+
+
+<p>I then <code>quit</code> and restarted <code>cluetoothctl</code>:</p>
+<div class="highlight"><pre><span></span>bluetoothctl
+[NEW] Controller 58:A8:39:01:D5:E0 erig0 [default]
+Agent registered
+</pre></div>
+
+
+<p>This is the state I wanted to find things in.</p>
+<p>7.1 <code>discoverable on</code>:</p>
+<div class="highlight"><pre><span></span>[bluetooth]# discoverable on
+Changing discoverable on succeeded
+[CHG] Controller 58:A8:39:01:D5:E0 Discoverable: yes
+</pre></div>
+
+
+<p>7.1.1 On your phone you should rescan and see the newly discoverable device named <code>erig0</code>. Don't 
+click on it yet though.</p>
+<p>7.2 <code>agent on</code>: Should say <code>Agent is already registered</code>.</p>
+<p>7.3 <code>default-agent</code>: Should say <code>Default agent request successful</code></p>
+<p>7.4 Pair from the phone by clicking on the <code>erig0</code> icon. </p>
+<p>7.4.1: When prompted on the rig, check that the numbers are correct and type <code>yes</code></p>
+<p>7.4.2: Afterwards, click "Pair" on the phone.</p>
+<p>Afterwards, you'll see a lot of <code>UUID</code> inco and then:</p>
+<div class="highlight"><pre><span></span>[CHG] Device 98:0D:2E:D8:59:73 Paired: yes
+[CHG] Device 98:0D:2E:D8:59:73 ServicesResolved: no
+[CHG] Device 98:0D:2E:D8:59:73 Connected: no
+</pre></div>
+
+
+<p>7.5 <code>paired-devices</code>: Confirm the phone is paired (from the rig's perspective):</p>
+<div class="highlight"><pre><span></span>  [bluetooth]# paired-devices
+  Device 98:0D:2E:D8:59:73 Noncompliant
+</pre></div>
+
+
+<p>7.6 <code>trust 98:0D:2E:D8:59:73</code>: Allow the rig to trust the phone.</p>
+<div class="highlight"><pre><span></span>[bluetooth]# trust 98:0D:2E:D8:59:73
+[CHG] Device 98:0D:2E:D8:59:73 Trusted: yes
+Changing 98:0D:2E:D8:59:73 trust succeeded
+</pre></div>
+
+
+<p>7.7 <code>quit</code>: Leave the bluetooth controller.</p>
+<p>8: <code>bt-pan client 98:0D:2E:D8:59:73</code>: See that the phone has a bluetooth connection now.</p>
+<p>9: <code>dhclient bnep0</code>: Get an IP. </p>
+<div class="highlight"><pre><span></span>root@erig0:~# ifconfig bnep0
+bnep0     Link encap:Ethernet  HWaddr 58:a8:39:01:d5:e0
+          inet addr:192.168.44.151  Bcast:192.168.44.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:46 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:41 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:4176 (4.0 KiB)  TX bytes:3386 (3.3 KiB)
+</pre></div>
+
+
+<p>Good. Verify with <code>curl http://checkip.amazonaws.com/</code></p>
+<p>10: <code>reboot</code>. Amongst other things, this will clean up temporary state and will check that all is
+well with the configurations. </p>
+<p>11: Check that all is well. Wait a while. Check your Nightscout. Give it about 10 minutes to sort 
+everything out.</p>
+<p>12: <em>Eventually</em> you can revert the commenting-out of the local WiFi from step -2 above.</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="../../../tag/insulin.html">insulin</a>, <a href="../../../tag/pump.html">pump</a>, <a href="../../../tag/diabetes.html">diabetes</a>, <a href="../../../tag/openaps.html">openaps</a>, <a href="../../../tag/bluetooth.html">bluetooth</a></p>
+        </div>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-you can add links in your config file fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-another social link fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">&copy;  Enda Farrell. <a href="/images/2017/7BE41ED9.pub.asc">My PGP public key</a></p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../../../theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="../../../theme/js/clean-blog.js"></script>
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-101964846-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
