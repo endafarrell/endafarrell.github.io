@@ -1,141 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html><html lang="en">
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>endafarrell.net |     All categories
+</title>
+    <meta name="author" content="Enda Farrell"/>
+    <style>
+        body, html {
+            height: 100%;top: 0;left: 0;margin: 0;font-family: Palatino, "Helvetica Neue", Helvetica, Arial, sans-serif;font-size: 16pt;line-height: 1.6;color: #333;}
 
+        .fixed {font-family: Consolas, monaco, monospace;}
 
-        <title>endafarrell.net - Categories</title>
+        .lake { /* https://unsplash.com/photos/T7K4aEPoGGk */background-image: url("/theme/images/lake.jpg");}
+        .office { /* https://unsplash.com/photos/dZxQn4VEv2M */background-image: url("/theme/images/office.jpg");}
+        .gist { /* https://unsplash.com/photos/ieic5Tq8YMk */background-image: url("/theme/images/gist.jpg");}
 
-        <!-- Bootstrap Core CSS -->
-        <link href="./theme/css/bootstrap.min.css" rel="stylesheet">
+        #top {height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;}
 
-        <!-- Custom CSS -->
-        <link href="./theme/css/clean-blog.css" rel="stylesheet">
+        #top > nav {padding: 2em;color: white;font-size: x-large;}
+        #top > nav a, #top > nav a:link, #top > nav a:visited, #top > nav a:hover, #top > nav a:active {color: inherit;text-decoration: inherit;font-weight: inherit;}
+        #top > nav a:hover, #top > nav a:active {color: inherit;text-decoration: inherit;font-weight: inherit;border-bottom: hotpink solid;}
+        .lead {font-size: 32pt;color: white;text-align: center;}
+        .sublead {font-size: 22pt;color: white;text-align: center;}
+        .small {font-size: smaller; color: #ddd;}
 
-        <!-- Code highlight color scheme -->
-            <link href="./theme/css/code_blocks/darkly.css" rel="stylesheet">
+        #top .bottom {position: absolute;bottom: 0;left: 50%;text-align: center;font-size: 60pt;color: hotpink;margin-bottom: 0;-webkit-animation: color-change 5s infinite;-moz-animation: color-change 5s infinite;-o-animation: color-change 5s infinite;-ms-animation: color-change 5s infinite;animation: color-change 5s infinite;}
+        @-webkit-keyframes color-change { 20% {color: hotpink;} 50% {color: white;} 80% {color: hotpink;} }
+        @-moz-keyframes color-change { 20% {color: hotpink;} 50% {color: white;} 80% {color: hotpink;} }
+        @-ms-keyframes color-change { 20% {color: hotpink;} 50% {color: white;} 80% {color: hotpink;} }
+        @-o-keyframes color-change { 20% {color: hotpink;} 50% {color: white;} 80% {color: hotpink;} }
+        @keyframes color-change { 20% {color: hotpink;} 50% {color: white;} 80% {color: hotpink;} }
 
+        .flex-grid {width: available;display: flex;align-items: center;flex-wrap: wrap;justify-content: space-between;}
+        .col {flex: 1; list-style-type: none;}
 
-        <!-- Custom Fonts -->
-        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
-        <!--<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>-->
-        <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>-->
+        section div.section {padding: 2em;}
+        pre.literal-block, div.highlight > pre {font-family: Consolas, monaco, monospace;font-size: smaller;line-height: 1.2;background-color: #dfdfdf;padding: 1em;}
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        footer {background-color: #333;color: white;bottom: 0;padding: 2em;}
+        footer > p {padding: 2em;margin-bottom: 0;text-align: center;}
+        footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {color: inherit;text-decoration: inherit;font-weight: inherit;}
+        footer a:hover, footer a:active {border-bottom: hotpink solid;}
+        footer .flex-grid, div#toc > ul.flex-grid { display: flex; align-items: flex-start; flex-wrap: wrap;  justify-content: space-between; }
+    </style>
 </head>
 
+
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="./">endafarrell.net</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
+<section id="top" class="lake">
+    <nav class="flex-grid fixed">
+        <div class="col"><a href="/">ENDA<br/>FARR<br/>ELL.</a></div>
+        <div class="col"><a href="./know-how/">know-how</a></div>
+        <div class="col"><a href="./resume/index.html">résumé</a></div>
+        <div class="col"><a href="./about/index.html">about</a></div>
     </nav>
+    <p class="lead fixed">    All categories
+</p>
+    <p class="bottom" title="scroll down">&#x21AF;</p>
 
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('./theme/images/banners/timber-1.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>endafarrell.net - Categories</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+</section>
+<section>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <ul>
-        <li><a href="./category/geo.html">Geo</a></li>
-        <li><a href="./category/java.html">Java</a></li>
-        <li><a href="./category/javascript.html">Javascript</a></li>
-        <li><a href="./category/other-code.html">Other code</a></li>
-        <li><a href="./category/python.html">Python</a></li>
-        <li><a href="./category/quantified-self.html">Quantified self</a></li>
-    </ul>
-            </div>
-        </div>
+
+    <div>
     </div>
 
-    <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="#">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-you can add links in your config file fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-another social link fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-<p class="copyright text-muted">&copy;  Enda Farrell. <a href="/images/2017/7BE41ED9.pub.asc">My PGP public key</a></p>                </div>
-            </div>
+</section>
+<footer>
+    <p class="sublead">Make it happen.</p>
+    <div class="flex-grid">
+        <div class="col">
+            <p><a href="mailto:enda.farrell@gmail.com">Enda Farrell</a><br/>
+                <a href="https://her.is/2K7ojJA">Schönhauser Allee 168<br/>
+                    Berlin 10435<br/>
+                    Germany</a>
+            </p></div>
+        <div class="col">
+            <p>Email: <a href="mailto:enda.farrell@gmail.com"><span class="fixed">enda.farrell@gmail.com</span></a><br/>
+            LinkedIn: <a href="https://www.linkedin.com/in/endafarrell/"><span class="fixed">/in/endafarrell/</span></a><br/>
+            My PGP key: <a href="./images/2019/7BE41ED9.pub.asc"><span class="fixed">7BE41ED9.pub.asc</span></a></p>
         </div>
-    </footer>
+        <div class="col">
+            <p>
+            <a href="./about/">about</a><br/>
+            <a href="./know-how/">know-how</a><br/>
+            <a href="./resume/">résumé</a><br/>
+            </p>
+        </div>
+    </div>
+    <div class="flex-grid">
+        <p class="col small">Disclaimer: these are my own personal opinions and are not endorsed by, nor do they
+            represent the opinions of any previous, current nor future employers. Not that there's anything that they
+            could object to, but you know, sometimes you need to be careful.</p>
+        <p class="small">Privacy: You may have noticed that there were no requests to set cookies for this site. There's
+            no javascript either and the only images are ones being served up directly from this site. this is by design
+            - I have no desire to track you 'round the web, nor to inadvertently help others to do so. However, this
+            site is hosted on github.io and your requests for these pages will end up in their servers and therefore
+            their logs. </p>
+        <p class="small">&copy; 2009-2019 Enda Farrell.</p>
 
-    <!-- jQuery -->
-    <script src="./theme/js/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="./theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="./theme/js/clean-blog.js"></script>
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-101964846-1', 'auto');
-        ga('send', 'pageview');
-    </script>
+    </div>
+</footer>
 </body>
-
 </html>
