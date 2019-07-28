@@ -13,7 +13,7 @@
 
         .lake { /* https://unsplash.com/photos/T7K4aEPoGGk */background-image: url("/theme/images/lake.jpg");}
         .office { /* https://unsplash.com/photos/dZxQn4VEv2M */background-image: url("/theme/images/office.jpg");}
-        .gist { /* https://unsplash.com/photos/ieic5Tq8YMk */background-image: url("/theme/images/gist.jpg");}
+        .gist { /* https://unsplash.com/photos/IGFaSal4jmQ */background-image: url("/theme/images/gist.jpg");}
 
         #top {height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;}
 
@@ -36,6 +36,8 @@
 
         section div.section {padding: 2em;}
         pre.literal-block, div.highlight > pre {font-family: Consolas, monaco, monospace;font-size: smaller;line-height: 1.2;background-color: #dfdfdf;padding: 1em;}
+        div.figure.align-left {float: left; margin: 0 1em 0 0;}
+
 
         footer {background-color: #333;color: white;bottom: 0;padding: 2em;}
         footer > p {padding: 2em;margin-bottom: 0;text-align: center;}
@@ -63,31 +65,35 @@
   <div class="section">
     <h2 id="senior software architect, principal engineer. here berlin. 2010-present">Senior Software Architect, Principal Engineer. HERE Berlin. 2010-present</h2>
 <h3 id="location graph 2018-">Location Graph 2018-</h3>
-<p>Awesome project. On-going and still a little hush-hush. </p>
+<p>Awesome project. On-going and still a little hush-hush. It involves graph databases (Neo4j), spatial databases and the
+coordinated coalescing of almost all of the important data HERE has a mapping company. </p>
+<p>There are data pipelines, public demonstration websites, hugely efficient multiprocessing extractors, transformers and 
+loaders: yet it's not the technologies that are the exciting part - it's the chance to change how we all interact with 
+map data.</p>
 <h3 id="facebook places 2016-2018">Facebook Places 2016-2018</h3>
-<p>The Facebook Places project is a large, strategic to the company programme of work that builds on my
-earlier &ldquo;External Content Ingestion&rdquo; and &ldquo;Online Place Engagement&rdquo; endeavours. My role is data
-modelling lead, I combine being a subject matter expert, a Data Scientist and Data Science Engineer,
-Systems Architect and team lead given the complexities of the programme. The business objectives are
-clear: extract places from the Facebook feed which are missing from HERE&rsquo;s PDS system, and, give
-supporting evidence for other places in our datasets. The Data Science continues to evolve. Many
-different models were tried: SVM (not a binary problem), logistic regression (problem isn&rsquo;t really
-linear) &amp; eventually decision trees. There continue to be problems with over-fitting due to
-inaccurate labels. These labels come from in-house experts (spreadsheet), Mechanical Turk and
-CrowdFlower jobs: but label veracity is still a concern. I am the owner of the (still) champion
-model which is a high-precision, rules-oriented, multi-class classifier - its success is largely
-down to deep domain knowledge and intuition. Data-science engineering has been made &ldquo;production
-grade&rdquo;: the Data Science team (based in Seattle) used email to share jupyter-based notebook models.
-We educated them in the use of git, issue tracking systems and codes reviews. Initially their models
-&ldquo;worked on my machine&rdquo; but not on the shared infrastructure that the ops team provided us: more
-tutoring on coercing code to work with existing tooling and convincing ops teams to deploy anaconda
+<p>The Facebook Places project is a large, strategic to the company, programme of work that builds on my
+earlier &ldquo;External Content Ingestion&rdquo; and &ldquo;Online Place Engagement&rdquo; endeavours. My role was data
+modelling lead and combined being a subject matter expert, a Data Scientist and Data Science Engineer,
+Systems Architect and team lead given how complex everything was. The business objectives were
+clear: find good quality places from the Facebook feed which are missing from HERE&rsquo;s places system, and, give
+supporting evidence for other places in our datasets. </p>
+<p>The Data Science realating to this was in its infancy and continues to evolve. Many different models were tried: SVM
+(though tis is not a binary problem), logistic regression (though the challence isn&rsquo;t really linear) and in 2017 we
+deicded to invest in random Forests. There continues, even today, to be problems with over-fitting due to inaccurate
+labels. These labels come from in-house experts (spreadsheets), Mechanical Turk and CrowdFlower jobs: but label veracity
+remains a concern. </p>
+<p>Until mid 2018 I was  owner of the (still, 2019) champion model which is a high-precision, rules-oriented, multi-class
+classifier - its success is largely down to deep domain knowledge and intuition. Data-science engineering has been made
+&ldquo;production grade&rdquo;: the Data Science team (originally based in Seattle, since replaced with some from Chicago) used
+email to share jupyter-based notebook models. We educated them in the use of git, issue tracking systems and code
+reviews. Initially their models &ldquo;worked on my machine&rdquo; but not on the shared infrastructure that the ops team provided
+us: more tutoring on coercing code to work with existing tooling and convincing ops teams to deploy anaconda 
 distributions of python on the spark infrastructure.</p>
-<p>Engineering and operations aspects are still being addressed: 10TB of data, now growing at 36GB per
-day. 200M entities, with 170M updates daily: data retention policies and storage are operational
-issues.</p>
-<p>The business value being brought is significant though. In 2014 we were at 77% coverage against
-Google&rsquo;s 91% and as of Jan we&rsquo;re both at 93% - a huge gain and a strategically important improvement
-as HERE&rsquo;s competitive landscape continues to change.</p>
+<p>Engineering and operations aspects are still being addressed: 10+TB of data, now growing at 36GB per day. 420M entities,
+with 170M updates daily: data retention policies and storage are operational issues.</p>
+<p>The business value being brought was and remains significant. In 2014 we were at 77% coverage against Google&rsquo;s 91% and
+as of Jan we&rsquo;re both at 93% - a huge gain and a strategically important improvement as HERE&rsquo;s competitive landscape
+continues to change.</p>
 <h3 id="online place engagement 2015">Online Place Engagement 2015</h3>
 <p>There are considerable costs to licensing external content - which providers are most important? By
 combining Place Usage Analysis with External Content Ingestion &amp; Volumetrics details, we could begin
@@ -198,7 +204,6 @@ business change needed to make them successful.</p>
             site is hosted on github.io and your requests for these pages will end up in their servers and therefore
             their logs. </p>
         <p class="small">&copy; 2009-2019 Enda Farrell.</p>
-
     </div>
 </footer>
 </body>

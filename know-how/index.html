@@ -13,7 +13,7 @@
 
         .lake { /* https://unsplash.com/photos/T7K4aEPoGGk */background-image: url("/theme/images/lake.jpg");}
         .office { /* https://unsplash.com/photos/dZxQn4VEv2M */background-image: url("/theme/images/office.jpg");}
-        .gist { /* https://unsplash.com/photos/ieic5Tq8YMk */background-image: url("/theme/images/gist.jpg");}
+        .gist { /* https://unsplash.com/photos/IGFaSal4jmQ */background-image: url("/theme/images/gist.jpg");}
 
         #top {height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;}
 
@@ -36,6 +36,8 @@
 
         section div.section {padding: 2em;}
         pre.literal-block, div.highlight > pre {font-family: Consolas, monaco, monospace;font-size: smaller;line-height: 1.2;background-color: #dfdfdf;padding: 1em;}
+        div.figure.align-left {float: left; margin: 0 1em 0 0;}
+
 
         footer {background-color: #333;color: white;bottom: 0;padding: 2em;}
         footer > p {padding: 2em;margin-bottom: 0;text-align: center;}
@@ -60,9 +62,12 @@
 </section>
 <section>
   <div>
-<div class="section"><p>There are times I find it useful to write down short notes about things that have value beyond the here and now. So much of what I deal with is short-term that it's helpful to recap occasionally. That's what this page is, a recap of some details that may yet prove useful.</p></div>    <div id="toc"><ul class="flex-grid"><li class="col"><a class="toc-href" href="#bluetooth tethering an edison" title="Bluetooth tethering an Edison">Bluetooth tethering an Edison</a></li><li class="col"><a class="toc-href" href="#fish, git status" title="fish, git status">fish, git status</a></li><li class="col"><a class="toc-href" href="#git" title="git">git</a></li><li class="col"><a class="toc-href" href="#jupyter" title="Jupyter">Jupyter</a></li><li class="col"><a "="" class="toc-href" href="#let's encrypt" title="Let's Encrypt">Let's Encrypt</a></li><li class="col"><a class="toc-href" href="#mermaid" title="Mermaid">Mermaid</a></li><li class="col"><a class="toc-href" href="#nginx" title="nginx">nginx</a></li></ul></div>
+<div class="section"><p>There are times I find it useful to write down short notes about things that have value beyond the here and now. So much of what I deal with is short-term that it's helpful to recap occasionally. That's what this page is, a recap of some details that may yet prove useful.</p></div>    <div id="toc"><ul class="flex-grid"><li class="col"><a class="toc-href" href="#bluetooth tethering an edison" title="Bluetooth tethering an Edison">Bluetooth tethering an Edison</a></li><li class="col"><a class="toc-href" href="#chrome extn" title="Chrome extn">Chrome extn</a></li><li class="col"><a class="toc-href" href="#fish, git status" title="fish, git status">fish, git status</a></li><li class="col"><a class="toc-href" href="#git" title="git">git</a></li><li class="col"><a class="toc-href" href="#gulp" title="gulp">gulp</a></li><li class="col"><a class="toc-href" href="#jupyter" title="Jupyter">Jupyter</a></li><li class="col"><a "="" class="toc-href" href="#let's encrypt" title="Let's Encrypt">Let's Encrypt</a></li><li class="col"><a class="toc-href" href="#mermaid" title="Mermaid">Mermaid</a></li><li class="col"><a class="toc-href" href="#nginx" title="nginx">nginx</a></li></ul></div>
     <div class="section" id="bluetooth-tethering-an-edison">
 <h2 id="bluetooth tethering an edison">Bluetooth tethering an Edison</h2>
+<div class="figure align-left" style="width: 48px; height: auto;">
+<img alt="" src="../images/2018/intel-edison.png" style="width: 48px; height: auto;"/>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
@@ -75,8 +80,42 @@
 the instructions on how to tether to be kind of confusing. While the instructions are almost certainly better today,
 I <a class="reference external" href="/in-depth/bluetooth-tether-edison/">wrote up my own notes</a> in early 2018.</p>
 </div>
+<div class="section" id="chrome-extn">
+<h2 id="chrome extn">Chrome extn</h2>
+<div class="figure align-left" style="width: 48px; height: auto;">
+<img alt="" src="../images/2019/Chrome.png" style="width: 48px; height: auto;"/>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field"><th class="field-name">when:</th><td class="field-body">2016-06</td>
+</tr>
+</tbody>
+</table>
+<p>I had an itch to be able to easily find the Facebook ID for Place pages that I was visiting. You can - usually - find
+the ID that the Facebook Graph API uses for a Place page by looking into the HTML source of the Facebook Place page and
+recognising some patterns. It was a slow business, so I wrote this instead.</p>
+<p>Due to my not really knowing how to set things up properly, the installation says that:</p>
+<pre class="literal-block">
+It can:
+
+* Read and change all your data on all facebook.com site
+* Read your browsing history
+</pre>
+<p>And I guess it _could_, based on the permissions that I didn't properly set up, but version 1.0.4 doesn't. Except "Read
+... data on ... facebook.com." of course. It does not need to read your browsing history, and it doesn't re-write nor
+edit nor modify nor hide nor touch the Facebook HTML at all. And it most certainly does not in any way "change all your
+data" on Facebook. I'll see about fixing these in a later version.</p>
+<p>So: if ever getting the ID of a Facebook Place was something you wanted to do, then
+<a class="reference external" href="https://chrome.google.com/webstore/detail/get-facebook-id/fakbnhhfckloijmnbpdanjeniajgjgcn?hl=en">Get Facebook ID</a>
+might be useful..</p>
+</div>
 <div class="section" id="fish-git-status">
 <h2 id="fish, git status">fish, git status</h2>
+<div class="figure align-left" style="width: 48px; height: auto;">
+<img alt="" src="../images/2018/fish-shell.png" style="width: 48px; height: auto;"/>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
@@ -92,7 +131,7 @@ admins.</p>
 <p>Since about 2014 all of my source control is via <a class="reference external" href="https://git-scm.com/">git</a> and to have your prompt show you what
 branch you're on, how clean your branch is (with respect to the most recent pull you've made), and most importantly how
 far through a rebase you are is a real benefit:</p>
-<img alt="an informative prompt" src="/images/2018/git-prompt.png"/>
+<img alt="an informative prompt" src="/images/2018/git-prompt.png" style="width: 796px; height: auto;"/>
 <p>Previous incarnations of this was done with <tt class="docutils literal">bsah</tt> and <tt class="docutils literal">vcprompt</tt> but on big projects that was noticeably slow, and
 there's a better way - the <a class="reference external" href="https://fishshell.com/">fish shell</a> with its <tt class="docutils literal">Classic + Vcs</tt> prompt.</p>
 <p>Don't let their homepage put you off though - find a YouTube video or two to see how productive you could become if you
@@ -100,6 +139,9 @@ never had to think about what branch you've checked out and whether it's clean -
 </div>
 <div class="section" id="id1">
 <h2 id="git">git</h2>
+<div class="figure align-left" style="width: 48px; height: auto;">
+<img alt="" src="../images/2018/fish-shell.png" style="width: 48px; height: auto;"/>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
@@ -108,8 +150,15 @@ never had to think about what branch you've checked out and whether it's clean -
 </tr>
 </tbody>
 </table>
-<p>I wrote a <a class="reference external" href="/in-depth/gerrit-survival-guide/">Gerrit survival guild</a> some time ago, and while I'm no longer on that
-gerrit-backed project, I did come away with a few <tt class="docutils literal">git</tt> lessons:</p>
+<p>I've been using git on and off for farious project for many many years, but you really only end up using the source
+control systems that the project you're on is using. I was one part of a team looking at moving a large, decade-old
+project from <tt class="docutils literal">svn</tt> to <tt class="docutils literal">git</tt> - but it didn't happen as (a) the devops processes relied on svn's incrementing revision
+numbers (and the cost to rework those was very high), and (b) one (senior) member of the team claimed they needed the
+ability to do "software archeology" to see who changed what when ... I believe it was a diversionary tactic to avoid the
+learning curve of a new tool.</p>
+<p>In 2016 I switched teams, one that was using <tt class="docutils literal">git/gerrit</tt> and after months of team team I wrote a
+<a class="reference external" href="/in-depth/gerrit-survival-guide/">Gerrit survival guild</a> . While I'm no longer on that gerrit-backed project, I did
+come away with a few <tt class="docutils literal">git</tt> lessons:</p>
 <ul class="simple">
 <li>If you administer a git repo, ensure that only <tt class="docutils literal"><span class="pre">fast-forward</span></tt> commits are allowed to <tt class="docutils literal">master</tt>. Better that the
 conflicts are dealt-with by one dev as they incorporate changes that have already landed on master than every single
@@ -120,6 +169,26 @@ dev having to continuously deal with bad commits.</li>
 <tt class="docutils literal">git checkout <span class="pre">{feature-branch}</span></tt> and <tt class="docutils literal">git rebase master</tt>. It's possible to rebase the remote (rather than local)
 master, but the commands become longer and more prone to not being done right every time by everyone.</li>
 </ul>
+</div>
+<div class="section" id="gulp">
+<h2 id="gulp">gulp</h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field"><th class="field-name">when:</th><td class="field-body">2019-07</td>
+</tr>
+</tbody>
+</table>
+<p>Frontend build tools and pipelines are unbelievably complex. I __totally__ resonate with the <a class="reference external" href="https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f">Hackernoon **How it feels
+to learn JavaScript in 2016**</a> article
+(which to be fair is the frontend port of something similar in the DevOps world <a class="reference external" href="https://circleci.com/blog/its-the-future/">CircleCI's **It's The Future** article
+from 2015</a>) and just today I've stumbled into the differences between
+<tt class="docutils literal">gulp 3</tt> and <tt class="docutils literal">gulp 4</tt> and being stung by the pain caused when people, instructions, tutorials do not take the time
+to ensure that each project has its own environment.</p>
+<p>Watch out - and I mean go and check the syntax of calls and don't just assume - that you're not going to install
+something into your "global" state - ensure that everything's in your venv, your conda, your working dir, your project
+dirs and then go and fix-up the paths in whatever scripts are being run.</p>
 </div>
 <div class="section" id="jupyter">
 <h2 id="jupyter">Jupyter</h2>
@@ -185,7 +254,7 @@ D --&gt; G
 C --&gt; G
 </pre>
 <p>After you run a document with the above through Mermaid, you'll get an image like this:</p>
-<img alt="simple diagram showing how to make it happen" src="/images/2019/make-it-happen.png"/>
+<img alt="simple diagram showing how to make it happen" src="/images/2019/make-it-happen.png" style="width: 687px; height: auto;"/>
 <p>Being able to draw simple diagrams like this is clearly very useful when documenting software
 systems and data flows. I often use <a class="reference external" href="http://www.sphinx-doc.org/en/master/">Sphinx</a> when writing
 docs and it comes with a <tt class="docutils literal">Makefile</tt> so that you can simply <tt class="docutils literal">make docs</tt> to take your Markdown or
@@ -238,7 +307,6 @@ reStructured Text and convert it into other formats for sharing.</p>
             site is hosted on github.io and your requests for these pages will end up in their servers and therefore
             their logs. </p>
         <p class="small">&copy; 2009-2019 Enda Farrell.</p>
-
     </div>
 </footer>
 </body>
