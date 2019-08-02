@@ -15,11 +15,9 @@
         .office { /* https://unsplash.com/photos/dZxQn4VEv2M */background-image: url("/theme/images/office.jpg");}
         .gist { /* https://unsplash.com/photos/IGFaSal4jmQ */background-image: url("/theme/images/gist.jpg");}
 
-        #top {height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;}
-
-        #top > nav {padding: 2em;color: white;font-size: x-large;}
-        #top > nav a, #top > nav a:link, #top > nav a:visited, #top > nav a:hover, #top > nav a:active {color: inherit;text-decoration: inherit;font-weight: inherit;}
-        #top > nav a:hover, #top > nav a:active {color: inherit;text-decoration: inherit;font-weight: inherit;border-bottom: hotpink solid;}
+        #top {position: relative; height: 60%;background-position: center;background-repeat: no-repeat;background-size: cover;padding: 2em;color: white;font-size: x-large;}
+        #top a, #top a:link, #top a:visited, #top a:hover, #top a:active {color: inherit;text-decoration: inherit;font-weight: inherit;}
+        #top a:hover, #top a:active {color: inherit;text-decoration: inherit;font-weight: inherit;border-bottom: hotpink solid;}
         .lead {font-size: 32pt;color: white;text-align: center;}
         .sublead {font-size: 22pt;color: white;text-align: center;}
         .small {font-size: smaller; color: #ddd;}
@@ -50,8 +48,8 @@
 
 <body>
 <section id="top" class="lake">
+    <div class="fixed"><a href="/">Enda FARRELL</a></div>
     <nav class="flex-grid fixed">
-        <div class="col"><a href="/">ENDA<br/>FARR<br/>ELL.</a></div>
         <div class="col"><a href="../know-how/">know-how</a></div>
         <div class="col"><a href="../resume/index.html">résumé</a></div>
         <div class="col"><a href="../about/index.html">about</a></div>
