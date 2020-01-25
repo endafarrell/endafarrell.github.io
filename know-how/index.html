@@ -130,7 +130,7 @@ admins.</p>
 branch you're on, how clean your branch is (with respect to the most recent pull you've made), and most importantly how
 far through a rebase you are is a real benefit:</p>
 <img alt="an informative prompt" src="/images/2018/git-prompt.png" style="width: 796px; height: auto;"/>
-<p>Previous incarnations of this was done with <tt class="docutils literal">bsah</tt> and <tt class="docutils literal">vcprompt</tt> but on big projects that was noticeably slow, and
+<p>Previous incarnations of this was done with <tt class="docutils literal">bash</tt> and <tt class="docutils literal">vcprompt</tt> but on big projects that was noticeably slow, and
 there's a better way - the <a class="reference external" href="https://fishshell.com/">fish shell</a> with its <tt class="docutils literal">Classic + Vcs</tt> prompt.</p>
 <p>Don't let their homepage put you off though - find a YouTube video or two to see how productive you could become if you
 never had to think about what branch you've checked out and whether it's clean - you can just see it.</p>
@@ -148,7 +148,7 @@ never had to think about what branch you've checked out and whether it's clean -
 </tr>
 </tbody>
 </table>
-<p>I've been using git on and off for farious project for many many years, but you really only end up using the source
+<p>I've been using git on and off for various project for many years, but you really only end up using the source
 control systems that the project you're on is using. I was one part of a team looking at moving a large, decade-old
 project from <tt class="docutils literal">svn</tt> to <tt class="docutils literal">git</tt> - but it didn't happen as (a) the devops processes relied on svn's incrementing revision
 numbers (and the cost to rework those was very high), and (b) one (senior) member of the team claimed they needed the
@@ -219,7 +219,7 @@ requirements, and front and centre was the need for the company's AAA mechanism.
 a lot of work - as to side-step robust (and ever-strengthening0 security processes is a stupid idea.</p>
 <p>One part of this process involved gateway servers crossing AWS VPCs and I'd wanted to have TLS from our <tt class="docutils literal">nginx</tt>
 reverse proxy, and rather than using self-signed certs I chose Let's Encrypt.</p>
-<p>Using Let's Encrypt is suposed to be easy and straight-forward, but due to other corporate limitations, our EC2
+<p>Using Let's Encrypt is supposed to be easy and straight-forward, but due to other corporate limitations, our EC2
 instances were not able to <tt class="docutils literal"><span class="pre">apt-get</span> install certbot</tt> so I ended up checking out the certbot source code and, as it's
 python, using that to get the certificates. As I (a) really did not want to open this internal server to the public
 internet, and (b) have control of the Route53 for these internal servers (which I grant you is an unusual combination),
@@ -300,11 +300,11 @@ reStructured Text and convert it into other formats for sharing.</p>
             represent the opinions of any previous, current nor future employers. Not that there's anything that they
             could object to, but you know, sometimes you need to be careful.</p>
         <p class="small">Privacy: You may have noticed that there were no requests to set cookies for this site. There's
-            no javascript either and the only images are ones being served up directly from this site. this is by design
+            no javascript either and the only images are ones being served up directly from this site. This is by design
             - I have no desire to track you 'round the web, nor to inadvertently help others to do so. However, this
-            site is hosted on github.io and your requests for these pages will end up in their servers and therefore
-            their logs. </p>
-        <p class="small">&copy; 2009-2019 Enda Farrell.</p>
+            site is hosted on github.io and your requests for these pages end up in their servers and therefore their
+            logs. </p>
+        <p class="small">&copy; 2009-2020 Enda Farrell.</p>
     </div>
 </footer>
 </body>

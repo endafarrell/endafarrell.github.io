@@ -61,8 +61,8 @@
 <section>
   <div>
   <div class="section">
-    <p>At work, some of our projects use gerrit. It's different to git and to github, and we didn't get the right kind of 
-training on howto use  it. This is a self-assembled survival guide. If you can articulate the differences between a 
+    <p>At work, some of our projects use gerrit. It's different to git and to github, and we didn't get the right kind of
+training on howto use  it. This is a self-assembled survival guide. If you can articulate the differences between a
 <code>merge</code> and a <code>rebase</code> then this is not for you!</p>
 <h2 id="initial checkout">Initial checkout</h2>
 <p>Your initial checkout should look something like this:</p>
@@ -73,20 +73,20 @@ training on howto use  it. This is a self-assembled survival guide. If you can a
 <p>Create a local branch to do your work. Always. Do not create a remote branch - it's almost never worth it, and if you're
 reading this, you're doing the wrong thing ;-)</p>
 <p><code>git checkout -b BUG-1234 origin/master</code></p>
-<p>This creates, and checksout, a new branch called BUG-1234 based on the current master.</p>
+<p>This creates, and checks out, a new branch called BUG-1234 based on the current master.</p>
 <p>Do some work. Add, edit, delete some code. Then do the <strong>first</strong> checkin:</p>
 <p><code>git add &lt;changes&gt;</code></p>
 <p><code>git commit</code></p>
 <p>Give your description. Now you might do some more work.</p>
 <p><code>git add &lt;new-changes&gt;</code></p>
 <p><code>git commit --amend</code></p>
-<p>The <em>core concept</em> in gerrit <em>seems</em> to be that you only push a <strong>single</strong> commit. This means you need to modify/amend 
-any pre-existing commits. gerrit itself sorts out the patch-sets when you push them, but you need to <code>--amend</code> locally 
+<p>The <em>core concept</em> in gerrit <em>seems</em> to be that you only push a <strong>single</strong> commit. This means you need to modify/amend
+any pre-existing commits. gerrit itself sorts out the patch-sets when you push them, but you need to <code>--amend</code> locally
 when making your changes.</p>
-<p>If it's been a while since you created the local branch, the origin/master may have changed. <strong>REBASE</strong> and <strong>NEVER 
+<p>If it's been a while since you created the local branch, the origin/master may have changed. <strong>REBASE</strong> and <strong>NEVER
 MERGE</strong>:</p>
 <p><code>git pull --rebase</code></p>
-<p>When you <code>merge</code> you'll have a merge commit, that then means you have multiple commits. There <em>are</em> ways of dealing 
+<p>When you <code>merge</code> you'll have a merge commit, that then means you have multiple commits. There <em>are</em> ways of dealing
 with this, but if you're reading this survival guide, they're not for you ;-)</p>
 <p>If you have conflicts, fix them.</p>
 <p>Finally, you've rebased, you're happy with both your changes and commit message: time to send your code to be reviewed:</p>
@@ -106,7 +106,7 @@ with this, but if you're reading this survival guide, they're not for you ;-)</p
 <ul>
 <li><code>git checkout master</code> (having first ensured that your git env is clean)</li>
 <li>Find the "<strong>Download Checkout</strong>" link on the gerrit UI.</li>
-<li>Paste that command at teh root of your checkout.</li>
+<li>Paste that command at the root of your checkout.</li>
 <li><code>git checkout -b change-owner-bug-number</code>  (so that you can tell who this code came from)</li>
 </ul>
 <p>Here you get to see the changes. If you want you <em>could</em>:</p>
@@ -121,7 +121,7 @@ with this, but if you're reading this survival guide, they're not for you ;-)</p
 <p>With this cheatsheet, your changes of survival have gone way up. Gerrit seems to work best when you have local branches.
 You need for everything to be a <em>single commit</em>, but don't try squashing - always use <code>--amend</code>. Never do a <code>merge</code>
 either -- always use <code>git pull --rebase</code>. Some teams seem to have success when they configure their IDEs to run these
-commands, but I have personally seen too many cases where terrible commits were included because of this - so always use 
+commands, but I have personally seen too many cases where terrible commits were included because of this - so always use
 the <code>git</code> CLI :-)</p>
   </div>
   </div>
@@ -153,11 +153,11 @@ the <code>git</code> CLI :-)</p>
             represent the opinions of any previous, current nor future employers. Not that there's anything that they
             could object to, but you know, sometimes you need to be careful.</p>
         <p class="small">Privacy: You may have noticed that there were no requests to set cookies for this site. There's
-            no javascript either and the only images are ones being served up directly from this site. this is by design
+            no javascript either and the only images are ones being served up directly from this site. This is by design
             - I have no desire to track you 'round the web, nor to inadvertently help others to do so. However, this
-            site is hosted on github.io and your requests for these pages will end up in their servers and therefore
-            their logs. </p>
-        <p class="small">&copy; 2009-2019 Enda Farrell.</p>
+            site is hosted on github.io and your requests for these pages end up in their servers and therefore their
+            logs. </p>
+        <p class="small">&copy; 2009-2020 Enda Farrell.</p>
     </div>
 </footer>
 </body>
